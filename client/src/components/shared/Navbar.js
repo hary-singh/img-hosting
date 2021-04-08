@@ -1,13 +1,18 @@
 import { AuthConsumer } from '../../providers/AuthProvider';
 import { Menu } from 'semantic-ui-react';
 import { Link, withRouter } from 'react-router-dom';
-
 const Navbar = ({ location, user, handleLogout, history }) => {
-
   const rightNavItem = () => {
     if (user) {
       return (
         <Menu.Menu position='right'>
+          <Link to='/profile'>
+            <Menu.Item
+              name='profile'
+              id='profile'
+              active={location.pathname === '/profile'}
+            />
+          </Link>
           <Menu.Item
             name='logout'
             onClick={() => handleLogout(history)}
@@ -35,7 +40,6 @@ const Navbar = ({ location, user, handleLogout, history }) => {
       )
     }
   }
-
   return(
     <>
       <Menu pointing secondary>
@@ -51,7 +55,6 @@ const Navbar = ({ location, user, handleLogout, history }) => {
     </>
   )
 }
-
 const ConnectedNavbar = (props) => (
   <AuthConsumer>
     { auth =>
@@ -59,5 +62,4 @@ const ConnectedNavbar = (props) => (
     }
   </AuthConsumer>
 )
-
 export default withRouter(ConnectedNavbar);
